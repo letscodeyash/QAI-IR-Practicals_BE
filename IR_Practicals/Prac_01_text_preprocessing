@@ -1,1 +1,90 @@
+nltk.download("all")
 
+import nltk
+
+#Tokenization
+
+from nltk import word_tokenize, sent_tokenize
+sentence= "Sppu Practical Exam, 2024 is starting from 15 to 24"
+print(word_tokenize(sentence))
+print()
+print(sent_tokenize(sentence))
+
+#POS_TAgging
+
+text = "the dogs are barking outside."
+word = nltk.word_tokenize(text)
+pos_tag = nltk.pos_tag(word)
+print (pos_tag)
+
+
+#Stop Word Removal
+
+from nltk.corpus import stopwords         
+                                         
+stop_words = stopwords.words('english')  
+
+token = word_tokenize(sentence)
+cleaned_token = []
+for word in token:
+    if word not in stop_words:
+        cleaned_token.append(word)
+print("This is the unclean version:", token)
+print("This is the cleaned version:", cleaned_token)
+
+
+# Stemming
+
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+
+ps = PorterStemmer()
+
+sentence = "Programmers program with programming languages"
+words = word_tokenize(sentence)
+
+for w in words:
+    print(w, " : ", ps.stem(w))
+
+
+
+#Lemmitization
+
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+
+print("rocks :", lemmatizer.lemmatize("rocks"))
+print("corpora :", lemmatizer.lemmatize("corpora"))
+
+# a denotes adjective in "pos"
+print("better :", lemmatizer.lemmatize("better", pos="a"))
+
+#Question 02
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+d0 = 'New York Times'
+d1 = 'New York Post'
+d2 = 'Los Angles Times'
+
+series = [d0, d1, d2]
+
+# create object
+tfidf = TfidfVectorizer()
+
+# get tf-df values
+result = tfidf.fit_transform(series)
+
+
+# get indexing
+print('\nWord indexes:')
+print(tfidf.vocabulary_)
+
+# display tf-idf values
+print('\ntf-idf value:')
+print(result)
+
+# in matrix form
+print('\ntf-idf values in matrix form:')
+print(result.toarray())
